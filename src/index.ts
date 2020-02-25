@@ -1,3 +1,4 @@
+import nanoid from "nanoid";
 type childrenElementConfig = {
   type: string;
   props: vDomProps;
@@ -81,7 +82,7 @@ class ReactTextComponent extends ReactComponent {
   }
 
   mountComponent() {
-    return `<span>${this.vDom}</span>`;
+    return `<span data-reactid="${nanoid()}">${this.vDom}</span>`;
   }
 
   updateComponent() {}
