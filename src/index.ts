@@ -1,6 +1,6 @@
 import nanoid from "nanoid";
 type childrenElementConfig = {
-  type: string;
+  type: string | Function;
   props: vDomProps;
   children?: childrenElementConfig[];
 };
@@ -17,7 +17,7 @@ class VDom {
   children: childrenElementConfig[];
 
   constructor(
-    type: string,
+    type: string | Function,
     props: vDomProps,
     children: childrenElementConfig[]
   ) {
@@ -28,7 +28,7 @@ class VDom {
 }
 
 function createElement(
-  type: string,
+  type: string | Function,
   props: vDomProps,
   children: childrenElementConfig[]
 ) {
