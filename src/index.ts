@@ -14,23 +14,21 @@ class VDom {
   type: string | Function;
 
   props: vDomProps;
-  children: childrenElementConfig[];
+  children: VDom[];
 
-  constructor(
-    type: string | Function,
-    props: vDomProps,
-    children: childrenElementConfig[]
-  ) {
+  constructor(type: string | Function, props: vDomProps, children: VDom[]) {
     this.type = type;
     this.props = props;
     this.children = children;
   }
 }
 
+// https://babeljs.io/docs/en/babel-plugin-transform-react-jsx/
+//
 function createElement(
   type: string | Function,
   props: vDomProps,
-  children: childrenElementConfig[]
+  ...children: VDom[]
 ) {
   return new VDom(type, props, children);
 }
@@ -88,27 +86,38 @@ class ReactTextComponent extends ReactComponent {
   updateComponent() {}
 }
 
-function instantiateReactComponent(
-  element: VDom | string | number | bigint | boolean
+// todo: diff
+/**
+ *
+ * @param element
+ * @param container
+ */
+function render(
+  element: VDom | string | number | bigint | boolean,
+  container: HTMLElement
 ) {
   if (typeof element !== "object") {
-    return new ReactTextComponent(element);
+    const child = document.createTextNode(element.toString());
+    return container.appendChild(child);
   } else if (typeof element.type === "string") {
-    return new ReactDomComponent(element);
-  } else {
-    return new ReactCompositeComponent(element);
+    const child = document.createElement(element.type);
+    element.children.forEach(ele => {
+      render(ele, child);
+    });
+    return container.appendChild(child);
   }
 }
 
 const React = {
   ReactComponent,
   createElement,
+  // todo: the render should be the same with above render function
   render(
     element: VDom | string | number | bigint | boolean,
     container: HTMLElement
   ) {
-    const componentInstance = instantiateReactComponent(element);
-    var markup = componentInstance.mountComponent();
-    container.innerHTML = markup;
+    // todo: diff
+    container.innerHTML = "";
+    render(element, container);
   }
 };
