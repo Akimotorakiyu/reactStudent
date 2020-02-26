@@ -116,3 +116,5 @@ const React = {
     render(element, container);
   }
 };
+
+export default React;
