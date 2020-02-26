@@ -1,9 +1,4 @@
 import nanoid from "nanoid";
-type childrenElementConfig = {
-  type: string | Function;
-  props: vDomProps;
-  children?: childrenElementConfig[];
-};
 
 type vDomProps = {
   key: string;
