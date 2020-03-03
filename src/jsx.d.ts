@@ -3,7 +3,7 @@
 declare namespace JSX {
   interface IntrinsicElements {
     h1: { title?: string };
-    h2: {};
+    h2: { title?: string };
     span: {};
     div: {};
     p: {};

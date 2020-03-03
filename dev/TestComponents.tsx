@@ -14,10 +14,10 @@ export const ClassComponent = new VDom("div", { key: "" }, [
   Date()
 ]);
 
-export function FunctionComponent() {
+export function FunctionComponent(props) {
   const vdom = (
     <div>
-      <h2>reactStudent</h2>
+      <h2 title={props?.title}>reactStudent</h2>
       <p>hello world!</p>
       {Date()}
     </div>

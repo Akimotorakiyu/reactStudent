@@ -22,7 +22,7 @@ export default function(): VDom {
       <ul>
         {Array.from(Array(3)).map(e => (
           <li>
-            <FunctionComponent></FunctionComponent>
+            <FunctionComponent title="标题"></FunctionComponent>
           </li>
         ))}
       </ul>
