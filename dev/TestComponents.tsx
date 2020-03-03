@@ -25,3 +25,15 @@ export function FunctionComponent() {
 
   return vdom;
 }
+
+export function NestComponent(props, slots) {
+  console.log(slots);
+  const vdom = (
+    <div>
+      Nesting...
+      {slots}
+    </div>
+  );
+
+  return vdom;
+}

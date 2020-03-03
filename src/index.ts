@@ -29,6 +29,7 @@ function createElement(
   props: vDomProps,
   ...children: VDom[]
 ) {
+  // console.log("createElement", type, props, children)
   return new VDom(type, props, children);
 }
 
@@ -127,7 +128,7 @@ function render(
     container.appendChild(child);
     return element;
   } else if (typeof element.type === "function") {
-    const newElement = element.type();
+    const newElement = element.type(element.props, element.children);
     render(newElement, container);
     return newElement;
   }

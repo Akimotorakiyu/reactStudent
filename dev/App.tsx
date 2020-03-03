@@ -3,14 +3,15 @@ import React, { VDom } from "../src/index";
 import {
   FunctionComponent,
   ObjectComponent,
-  ClassComponent
+  ClassComponent,
+  NestComponent
 } from "./TestComponents";
 
 export default function(): VDom {
   return (
     <div>
       <h1>Component</h1>
-      <FunctionComponent></FunctionComponent>
+      <FunctionComponent title="标题"></FunctionComponent>
       <h1>StaticObject</h1>
       {ObjectComponent}
       <h1>ClassBasic-StaticObject</h1>
@@ -25,6 +26,11 @@ export default function(): VDom {
           </li>
         ))}
       </ul>
+
+      <h1>nest</h1>
+      <NestComponent>
+        <NestComponent></NestComponent>
+      </NestComponent>
     </div>
   );
 }
