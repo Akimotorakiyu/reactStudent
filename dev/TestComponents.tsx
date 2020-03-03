@@ -27,13 +27,11 @@ export function FunctionComponent(props) {
 }
 
 export function NestComponent(props, slots) {
-  console.log(slots);
   const vdom = (
     <Fragment>
       Nesting...
       {slots}
     </Fragment>
   );
-
   return vdom;
 }

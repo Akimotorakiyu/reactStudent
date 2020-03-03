@@ -121,9 +121,7 @@ function render(
   }
   // function component, run it and return a VDOM instance function component
   else if (typeof element == "function") {
-    console.log("function", element);
     const newElement = element();
-
     render(newElement, container);
   }
   // VDOM instance tag component
@@ -137,7 +135,6 @@ function render(
     element.children.forEach(ele => {
       render(ele, child);
     });
-    console.log("child", child);
     container.appendChild(child);
   }
   // VDOM instance function component
