@@ -130,6 +130,8 @@ function render(
       element.type === "Fragment"
         ? document.createDocumentFragment()
         : document.createElement(element.type);
+
+    Object.assign(child, element.props);
     console.log("ele", element);
     console.log("child", child);
     element.children.forEach(ele => {

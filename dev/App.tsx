@@ -10,7 +10,7 @@ import {
 export default function(): VDom {
   return (
     <Fragment>
-      <h1>Component</h1>
+      <h1 title="一级标题">Component</h1>
       <FunctionComponent title="标题"></FunctionComponent>
       <h1>StaticObject</h1>
       {ObjectComponent}
