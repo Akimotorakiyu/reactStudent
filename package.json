@@ -4,13 +4,22 @@
   "main": "index.js",
   "author": "瓦姆乌·湫曗 <autumnsilverleaves@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "dev": "cross-env TS_NODE_PROJECT=\"scripts/rollup/tsconfig.json\" ts-node ./scripts/rollup/rollup.ts"
+  },
   "devDependencies": {
+    "@rollup/plugin-node-resolve": "^7.1.1",
+    "@rollup/plugin-typescript": "^3.0.0",
     "@types/nanoid": "^2.1.0",
     "husky": "^4.2.3",
     "prettier": "^1.19.1",
     "pretty-quick": "^2.0.1",
+    "rollup": "^1.32.0",
+    "rollup-plugin-json": "^4.0.0",
+    "rollup-plugin-typescript2": "^0.26.0",
     "ts-node": "^8.6.2",
-    "typescript": "^3.8.2"
+    "tslib": "^1.11.1",
+    "typescript": "^3.8.3"
   },
   "husky": {
     "hooks": {
@@ -18,6 +27,8 @@
     }
   },
   "dependencies": {
-    "nanoid": "^2.1.11"
+    "cross-env": "^7.0.0",
+    "nanoid": "^2.1.11",
+    "tsconfig-paths": "^3.9.0"
   }
 }

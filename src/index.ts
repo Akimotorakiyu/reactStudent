@@ -1,5 +1,3 @@
-import nanoid from "nanoid";
-
 type vDomProps = {
   key: string;
   [prop: string]: string;
@@ -75,7 +73,9 @@ class ReactTextComponent extends ReactComponent {
   }
 
   mountComponent() {
-    return `<span data-reactid="${nanoid()}">${this.vDom}</span>`;
+    return `<span data-reactid="${new Date().valueOf()}-${Math.random().toString()}">${
+      this.vDom
+    }</span>`;
   }
 
   updateComponent() {}
