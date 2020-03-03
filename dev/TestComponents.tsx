@@ -1,4 +1,4 @@
-import React, { VDom } from "../src/index";
+import React, { VDom, Fragment } from "../src/index";
 
 export const ObjectComponent: VDom = (
   <div>
@@ -29,10 +29,10 @@ export function FunctionComponent() {
 export function NestComponent(props, slots) {
   console.log(slots);
   const vdom = (
-    <div>
+    <Fragment>
       Nesting...
       {slots}
-    </div>
+    </Fragment>
   );
 
   return vdom;
