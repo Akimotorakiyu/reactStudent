@@ -14,3 +14,5 @@
 - list
 - multiple root dom
 - Fragment
+- props
+- slot
