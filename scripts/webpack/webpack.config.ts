@@ -39,7 +39,7 @@ if (isDevelopment) {
   );
 }
 const config: webpack.Configuration = {
-  entry: "./src/index.ts",
+  entry: "./dev/index.ts",
   devtool: "inline-source-map",
   devServer: {
     contentBase: "dist",
