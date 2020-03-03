@@ -1,5 +1,5 @@
 type vDomProps = {
-  key: string;
+  key?: string;
   [prop: string]: string;
 };
 
@@ -13,8 +13,8 @@ export class VDom {
 
   constructor(
     type: string | Function,
-    props: vDomProps,
-    children: ElementType[]
+    props: vDomProps = {},
+    children: ElementType[] = []
   ) {
     this.type = type;
     this.props = props;
