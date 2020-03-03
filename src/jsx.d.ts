@@ -7,6 +7,9 @@ declare namespace JSX {
     span: {};
     div: {};
     p: {};
+    li: {};
+    ol: {};
+    ul: {};
     // [tagName: string]: any;
   }
 }

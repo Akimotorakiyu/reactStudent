@@ -99,13 +99,24 @@ interface vFun {
 function render(
   element: ElementType | vFun,
   container: HTMLElement
-): ElementType {
+): ElementType | HTMLElement {
   console.log(element);
   if (typeof element !== "object" && typeof element !== "function") {
     const child = document.createTextNode(element.toString());
     container.appendChild(child);
 
     return element;
+  } else if (Array.isArray(element)) {
+    const child = document.createElement("template");
+    element.forEach(ele => {
+      render(ele, child);
+    });
+
+    [...child.childNodes].forEach(ele => {
+      container.appendChild(ele);
+    });
+
+    return child;
   } else if (typeof element == "function") {
     // todo : wip
     const newElement = element();
@@ -130,7 +141,10 @@ const React = {
   ReactComponent,
   createElement,
   // todo: the render should be the same with above render function
-  render(element: ElementType | vFun, container: HTMLElement): ElementType {
+  render(
+    element: ElementType | vFun,
+    container: HTMLElement
+  ): ElementType | HTMLElement {
     // todo: diff
     container.innerHTML = "";
     return render(element, container);
