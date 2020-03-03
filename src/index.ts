@@ -1,5 +1,7 @@
+import { genId } from "./key";
 type vDomProps = {
   key?: string;
+  id?: string;
   [prop: string]: string;
 };
 
@@ -17,7 +19,8 @@ export class VDom {
     children: ElementType[] = []
   ) {
     this.type = type;
-    this.props = props;
+    this.props = props || {};
+    this.props.id = this.props.id || genId();
     this.children = children;
   }
 }
@@ -130,7 +133,7 @@ function render(
       element.type === "Fragment"
         ? document.createDocumentFragment()
         : document.createElement(element.type);
-
+    console.log(element);
     Object.assign(child, element.props);
     element.children.forEach(ele => {
       render(ele, child);
