@@ -1,8 +1,4 @@
 import React from "../src/index";
-import { reder } from "./tsx";
+import App from "./App";
 
-console.log("hello world!");
-console.log(React.render);
-console.log(reder.toString());
-
-React.render("hello world", document.querySelector("#root"));
+React.render(App, document.querySelector("#root"));
