@@ -104,46 +104,46 @@ interface vFun {
 function render(
   element: ElementType | vFun,
   container: HTMLElement | DocumentFragment
-): ElementType | HTMLElement | DocumentFragment {
+): void {
+  // value
   if (typeof element !== "object" && typeof element !== "function") {
     const child = document.createTextNode(element.toString());
     container.appendChild(child);
-
-    return element;
-  } else if (Array.isArray(element)) {
+  }
+  // node list
+  else if (Array.isArray(element)) {
     const fragment = document.createDocumentFragment();
     element.forEach(ele => {
       render(ele, fragment);
     });
 
     container.appendChild(fragment);
-
-    return fragment;
-  } else if (typeof element == "function") {
+  }
+  // function component, run it and return a VDOM instance function component
+  else if (typeof element == "function") {
     console.log("function", element);
     const newElement = element();
 
     render(newElement, container);
-    return newElement;
-  } else if (typeof element.type === "string") {
+  }
+  // VDOM instance tag component
+  else if (typeof element.type === "string") {
     const child =
       element.type === "Fragment"
         ? document.createDocumentFragment()
         : document.createElement(element.type);
 
     Object.assign(child, element.props);
-    console.log("ele", element);
-    console.log("child", child);
     element.children.forEach(ele => {
       render(ele, child);
     });
     console.log("child", child);
     container.appendChild(child);
-    return element;
-  } else if (typeof element.type === "function") {
+  }
+  // VDOM instance function component
+  else if (typeof element.type === "function") {
     const newElement = element.type(element.props, element.children);
     render(newElement, container);
-    return newElement;
   }
 }
 
@@ -151,13 +151,10 @@ const React = {
   ReactComponent,
   createElement,
   // todo: the render should be the same with above render function
-  render(
-    element: ElementType | vFun,
-    container: HTMLElement
-  ): ElementType | HTMLElement | DocumentFragment {
+  render(element: ElementType | vFun, container: HTMLElement) {
     // todo: diff
     container.innerHTML = "";
-    return render(element, container);
+    render(element, container);
   }
 };
 
