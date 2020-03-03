@@ -1,8 +1,20 @@
 import React, { VDom } from "../src/index";
 
-const title: VDom = <h1>aaa</h1>;
+const title: VDom = (
+  <div>
+    <h1>reactStudent </h1>
+    <p>hello world!</p>
+  </div>
+);
 export default title;
 
-function render(): VDom {
-  return <h1>aaa</h1>;
+function redner() {
+  const vdom = (
+    <div>
+      <h2>reactStudent </h2>
+      <p>hello world!</p>
+    </div>
+  );
+
+  return vdom;
 }
