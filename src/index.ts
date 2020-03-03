@@ -3,13 +3,19 @@ type vDomProps = {
   [prop: string]: string;
 };
 
+type ElementType = VDom | string | number | bigint | boolean;
+
 export class VDom {
   type: string | Function;
 
   props: vDomProps;
-  children: VDom[];
+  children: ElementType[];
 
-  constructor(type: string | Function, props: vDomProps, children: VDom[]) {
+  constructor(
+    type: string | Function,
+    props: vDomProps,
+    children: ElementType[]
+  ) {
     this.type = type;
     this.props = props;
     this.children = children;
@@ -81,6 +87,9 @@ class ReactTextComponent extends ReactComponent {
   updateComponent() {}
 }
 
+interface vFun {
+  (): VDom;
+}
 // todo: diff
 /**
  *
@@ -88,18 +97,32 @@ class ReactTextComponent extends ReactComponent {
  * @param container
  */
 function render(
-  element: VDom | string | number | bigint | boolean,
+  element: ElementType | vFun,
   container: HTMLElement
-) {
-  if (typeof element !== "object") {
+): ElementType {
+  console.log(element);
+  if (typeof element !== "object" && typeof element !== "function") {
     const child = document.createTextNode(element.toString());
-    return container.appendChild(child);
+    container.appendChild(child);
+
+    return element;
+  } else if (typeof element == "function") {
+    // todo : wip
+    const newElement = element();
+
+    render(newElement, container);
+    return newElement;
   } else if (typeof element.type === "string") {
     const child = document.createElement(element.type);
     element.children.forEach(ele => {
       render(ele, child);
     });
-    return container.appendChild(child);
+    container.appendChild(child);
+    return element;
+  } else if (typeof element.type === "function") {
+    const newElement = element.type();
+    render(newElement, container);
+    return newElement;
   }
 }
 
@@ -107,13 +130,10 @@ const React = {
   ReactComponent,
   createElement,
   // todo: the render should be the same with above render function
-  render(
-    element: VDom | string | number | bigint | boolean,
-    container: HTMLElement
-  ) {
+  render(element: ElementType | vFun, container: HTMLElement): ElementType {
     // todo: diff
     container.innerHTML = "";
-    render(element, container);
+    return render(element, container);
   }
 };
 

@@ -1,20 +1,12 @@
 import React, { VDom } from "../src/index";
 
-const title: VDom = (
-  <div>
-    <h1>reactStudent </h1>
-    <p>hello world!</p>
-  </div>
-);
-export default title;
+import { FunctionComponent } from "./TestComponents";
 
-function redner() {
-  const vdom = (
+export default function(): VDom {
+  return (
     <div>
-      <h2>reactStudent </h2>
-      <p>hello world!</p>
+      <h1>Component</h1>
+      <FunctionComponent></FunctionComponent>
     </div>
   );
-
-  return vdom;
 }
