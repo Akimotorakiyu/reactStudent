@@ -1,4 +1,4 @@
-import React, { VDom } from "../src/index";
+import React, { VDom, Fragment } from "../src/index";
 
 import {
   FunctionComponent,
@@ -9,7 +9,7 @@ import {
 
 export default function(): VDom {
   return (
-    <div>
+    <Fragment>
       <h1>Component</h1>
       <FunctionComponent title="标题"></FunctionComponent>
       <h1>StaticObject</h1>
@@ -31,6 +31,6 @@ export default function(): VDom {
       <NestComponent>
         <NestComponent></NestComponent>
       </NestComponent>
-    </div>
+    </Fragment>
   );
 }

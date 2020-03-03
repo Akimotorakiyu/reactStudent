@@ -22,6 +22,10 @@ export class VDom {
   }
 }
 
+export function Fragment(props, slots) {
+  return createElement("Fragment", props, slots);
+}
+
 // https://babeljs.io/docs/en/babel-plugin-transform-react-jsx/
 //
 function createElement(
@@ -116,15 +120,22 @@ function render(
 
     return fragment;
   } else if (typeof element == "function") {
+    console.log("function", element);
     const newElement = element();
 
     render(newElement, container);
     return newElement;
   } else if (typeof element.type === "string") {
-    const child = document.createElement(element.type);
+    const child =
+      element.type === "Fragment"
+        ? document.createDocumentFragment()
+        : document.createElement(element.type);
+    console.log("ele", element);
+    console.log("child", child);
     element.children.forEach(ele => {
       render(ele, child);
     });
+    console.log("child", child);
     container.appendChild(child);
     return element;
   } else if (typeof element.type === "function") {
