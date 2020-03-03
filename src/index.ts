@@ -118,3 +118,5 @@ const React = {
 };
 
 export default React;
+
+console.log("hello world!");
