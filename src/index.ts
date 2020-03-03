@@ -3,7 +3,7 @@ type vDomProps = {
   [prop: string]: string;
 };
 
-class VDom {
+export class VDom {
   type: string | Function;
 
   props: vDomProps;
