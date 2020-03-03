@@ -98,27 +98,23 @@ interface vFun {
  */
 function render(
   element: ElementType | vFun,
-  container: HTMLElement
-): ElementType | HTMLElement {
-  console.log(element);
+  container: HTMLElement | DocumentFragment
+): ElementType | HTMLElement | DocumentFragment {
   if (typeof element !== "object" && typeof element !== "function") {
     const child = document.createTextNode(element.toString());
     container.appendChild(child);
 
     return element;
   } else if (Array.isArray(element)) {
-    const child = document.createElement("template");
+    const fragment = document.createDocumentFragment();
     element.forEach(ele => {
-      render(ele, child);
+      render(ele, fragment);
     });
 
-    [...child.childNodes].forEach(ele => {
-      container.appendChild(ele);
-    });
+    container.appendChild(fragment);
 
-    return child;
+    return fragment;
   } else if (typeof element == "function") {
-    // todo : wip
     const newElement = element();
 
     render(newElement, container);
@@ -144,7 +140,7 @@ const React = {
   render(
     element: ElementType | vFun,
     container: HTMLElement
-  ): ElementType | HTMLElement {
+  ): ElementType | HTMLElement | DocumentFragment {
     // todo: diff
     container.innerHTML = "";
     return render(element, container);
