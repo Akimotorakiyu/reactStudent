@@ -1,5 +1,11 @@
 # reactStudent
 
+# todo
+
+- react hook
+- dom update
+- dom diff
+
 ## dev & build
 
 - webpack dev server
