@@ -23,7 +23,7 @@ export interface VueElement extends JSX.Element {
   type: VDOMType;
   props: vDomProps;
   children: RenderElementType[];
-  $el?: VDom;
+  $el?: VDom | HTMLElement | DocumentFragment;
 }
 
 export interface vFun {
@@ -44,7 +44,7 @@ export class VDom implements VueElement {
   type: VDOMType;
   props: vDomProps;
   children: RenderElementType[];
-  $el?: VDom;
+  $el?: VDom | HTMLElement | DocumentFragment;
   constructor(
     type: VDOMType,
     props: vDomProps = {},
@@ -84,8 +84,8 @@ function render(
 ): void {
   // value
   if (typeof element !== "object" && typeof element !== "function") {
-    const child = document.createTextNode(element.toString());
-    container.appendChild(child);
+    const $elDomTextElement = document.createTextNode(element.toString());
+    container.appendChild($elDomTextElement);
   }
   // node list
   else if (Array.isArray(element)) {
@@ -96,22 +96,24 @@ function render(
 
     container.appendChild(fragment);
   } else if (typeof element.type === "string") {
-    const child =
+    const $elDomElement =
       element.type === "Fragment" || element.type == ""
         ? document.createDocumentFragment()
         : document.createElement(element.type);
 
-    Object.assign(child, element.props);
+    Object.assign($elDomElement, element.props);
     element.children.forEach(ele => {
-      render(ele, child);
+      render(ele, $elDomElement);
     });
-    container.appendChild(child);
+
+    element.$el = $elDomElement;
+    container.appendChild($elDomElement);
   }
   // VDOM instance function component
   else if (typeof element.type === "function") {
-    const $elElement = element.type(element.props, element.children);
-    element.$el = $elElement;
-    render($elElement, container);
+    const $elVdomElement = element.type(element.props, element.children);
+    element.$el = $elVdomElement;
+    render($elVdomElement, container);
   }
 }
 
