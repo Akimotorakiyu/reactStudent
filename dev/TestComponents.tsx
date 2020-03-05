@@ -1,10 +1,11 @@
 import React, { VDom, Fragment } from "../src/index";
+import Clock from "./Clock";
 
 export const ObjectComponent = (
   <div>
     <h1>reactStudent</h1>
     <p>hello world!</p>
-    {Date()}
+    <Clock></Clock>
   </div>
 );
 
@@ -19,7 +20,7 @@ export function FunctionComponent(props) {
     <div>
       <h2 title={props?.title}>reactStudent</h2>
       <p>hello world!</p>
-      {Date()}
+      <Clock></Clock>
     </div>
   );
 

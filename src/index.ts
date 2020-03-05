@@ -22,26 +22,32 @@ declare global {
 export interface VueElement extends JSX.Element {
   type: VDOMType;
   props: vDomProps;
-  children: ElementType[];
+  children: RenderElementType[];
 }
 
-interface vFun {
-  (props?: vDomProps, children?: ElementType[]): ElementType;
+export interface vFun {
+  (props?: vDomProps, children?: RenderElementType[]): ElementType;
 }
 
-type ElementType = string | number | bigint | boolean | VDom | VueElement;
+export function componentFunction(fn: vFun) {
+  return fn;
+}
+
+type ElementType = VDom | VueElement;
+
+type RenderElementType = string | number | bigint | boolean | ElementType;
 
 type VDOMType = string | vFun;
 
 export class VDom implements VueElement {
   type: VDOMType;
   props: vDomProps;
-  children: ElementType[];
+  children: RenderElementType[];
 
   constructor(
     type: VDOMType,
     props: vDomProps = {},
-    children: ElementType[] = []
+    children: RenderElementType[] = []
   ) {
     this.type = type;
     this.props = props || {};
@@ -72,7 +78,7 @@ export function createElement(
  * @param container
  */
 function render(
-  element: ElementType,
+  element: RenderElementType,
   container: HTMLElement | DocumentFragment
 ): void {
   // value
