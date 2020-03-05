@@ -81,8 +81,9 @@ export function createElement(
  * @param container
  */
 function render(
-  element: RenderElementType,
-  container: HTMLElement | DocumentFragment
+  element: RenderElementType | RenderElementType[],
+  container: HTMLElement | DocumentFragment,
+  parent: VDom
 ): void {
   // value
   if (typeof element !== "object" && typeof element !== "function") {
@@ -93,7 +94,7 @@ function render(
   else if (Array.isArray(element)) {
     const fragment = document.createDocumentFragment();
     element.forEach(ele => {
-      render(ele, fragment);
+      render(ele, fragment, parent);
     });
 
     container.appendChild(fragment);
@@ -105,19 +106,18 @@ function render(
 
     Object.assign($elDomElement, element.props);
     element.children.forEach(ele => {
-      render(ele, $elDomElement);
+      render(ele, $elDomElement, parent);
     });
 
     element.$el = $elDomElement;
-    element.$parent = container;
     container.appendChild($elDomElement);
   }
   // VDOM instance function component
   else if (typeof element.type === "function") {
     const $elVdomElement = element.type(element.props, element.children);
     element.$el = $elVdomElement;
-    element.$parent = container;
-    render($elVdomElement, container);
+    element.$parent = parent;
+    render($elVdomElement, container, element);
   }
 }
 
@@ -127,7 +127,7 @@ const React = {
   render(element: ElementType, container: HTMLElement) {
     // todo: diff
     container.innerHTML = "";
-    render(element, container);
+    render(element, container, null);
   }
 };
 
