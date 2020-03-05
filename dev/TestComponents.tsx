@@ -1,6 +1,6 @@
 import React, { VDom, Fragment } from "../src/index";
 
-export const ObjectComponent: VDom = (
+export const ObjectComponent = (
   <div>
     <h1>reactStudent</h1>
     <p>hello world!</p>

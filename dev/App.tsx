@@ -1,4 +1,4 @@
-import React, { VDom, Fragment } from "../src/index";
+import React, { VDom, Fragment, VueElement } from "../src/index";
 
 import {
   FunctionComponent,
@@ -7,9 +7,9 @@ import {
   NestComponent
 } from "./TestComponents";
 
-export default function(): VDom {
+export default function App() {
   return (
-    <Fragment>
+    <>
       <h1 id="myid" title="一级标题">
         Component
       </h1>
@@ -33,6 +33,6 @@ export default function(): VDom {
       <NestComponent>
         <NestComponent></NestComponent>
       </NestComponent>
-    </Fragment>
+    </>
   );
 }
