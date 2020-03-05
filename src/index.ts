@@ -23,7 +23,7 @@ export interface VueElement extends JSX.Element {
   type: VDOMType;
   props: vDomProps;
   children: RenderElementType[];
-  $el?: VDom | HTMLElement | DocumentFragment;
+  $el?: VDom | HTMLElement | DocumentFragment | ChildNode[];
   $parent?: VDom | HTMLElement | DocumentFragment;
 }
 
@@ -45,7 +45,7 @@ export class VDom implements VueElement {
   type: VDOMType;
   props: vDomProps;
   children: RenderElementType[];
-  $el?: VDom | HTMLElement | DocumentFragment;
+  $el?: VDom | HTMLElement | DocumentFragment | ChildNode[];
   $parent?: VDom | HTMLElement | DocumentFragment;
   constructor(
     type: VDOMType,
@@ -99,18 +99,27 @@ function render(
 
     container.appendChild(fragment);
   } else if (typeof element.type === "string") {
-    const $elDomElement =
-      element.type === "Fragment" || element.type == ""
-        ? document.createDocumentFragment()
-        : document.createElement(element.type);
+    const isFragment = element.type === "Fragment" || element.type == "";
+
+    const $elDomElement = isFragment
+      ? document.createDocumentFragment()
+      : document.createElement(element.type);
 
     Object.assign($elDomElement, element.props);
+
     element.children.forEach(ele => {
       render(ele, $elDomElement, parent);
     });
 
-    element.$el = $elDomElement;
-    container.appendChild($elDomElement);
+    if (isFragment) {
+      const childNodes = Array.from($elDomElement.childNodes);
+
+      element.$el = childNodes;
+      container.appendChild($elDomElement);
+    } else {
+      element.$el = $elDomElement;
+      container.appendChild($elDomElement);
+    }
   }
   // VDOM instance function component
   else if (typeof element.type === "function") {
