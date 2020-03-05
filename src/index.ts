@@ -23,6 +23,7 @@ export interface VueElement extends JSX.Element {
   type: VDOMType;
   props: vDomProps;
   children: RenderElementType[];
+  $el?: VDom;
 }
 
 export interface vFun {
@@ -43,7 +44,7 @@ export class VDom implements VueElement {
   type: VDOMType;
   props: vDomProps;
   children: RenderElementType[];
-
+  $el?: VDom;
   constructor(
     type: VDOMType,
     props: vDomProps = {},
@@ -67,7 +68,7 @@ export function createElement(
   props: vDomProps = {},
   ...children: VDom[]
 ) {
-  console.log("createElement", type, props, children);
+  // console.log("createElement", type, props, children);
   return new VDom(type, props, children);
 }
 
@@ -94,21 +95,12 @@ function render(
     });
 
     container.appendChild(fragment);
-  }
-  // function component, run it and return a VDOM instance function component
-  // else if (typeof element == "function") {
-  //   console.log("element function", element);
-  //   const newElement = element();
-  //   render(newElement, container);
-  // }
-  // VDOM instance tag component
-  else if (typeof element.type === "string") {
-    console.log("element", element);
+  } else if (typeof element.type === "string") {
     const child =
       element.type === "Fragment" || element.type == ""
         ? document.createDocumentFragment()
         : document.createElement(element.type);
-    console.log(element);
+
     Object.assign(child, element.props);
     element.children.forEach(ele => {
       render(ele, child);
@@ -117,8 +109,9 @@ function render(
   }
   // VDOM instance function component
   else if (typeof element.type === "function") {
-    const newElement = element.type(element.props, element.children);
-    render(newElement as VDom, container);
+    const $elElement = element.type(element.props, element.children);
+    element.$el = $elElement;
+    render($elElement, container);
   }
 }
 

@@ -1,9 +1,12 @@
 import React, { componentFunction } from "../src/index";
 
-export default componentFunction(function(props, child) {
-  console.log(this);
+export default componentFunction(function Clock(props, child) {
+  console.log("clock instance", this);
 
-  const a = <h1>jjj</h1>;
-
-  return <>time: {Date()}</>;
+  return (
+    <>
+      <h3>time</h3>
+      {Date()}
+    </>
+  );
 });
