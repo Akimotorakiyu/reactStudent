@@ -131,9 +131,9 @@ const React = {
   ) {
     // todo: diff
 
-    Array.from(container.childNodes).forEach(ele => {
-      container.removeChild(ele);
-    });
+    // Array.from(container.childNodes).forEach(ele => {
+    //   container.removeChild(ele);
+    // });
 
     render(element, container, parent);
   }
