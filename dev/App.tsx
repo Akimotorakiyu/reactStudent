@@ -14,7 +14,7 @@ export default function App() {
         Component
       </h1>
       <FunctionComponent title="标题"></FunctionComponent>
-      <h1>StaticObject</h1>
+      {/* <h1>StaticObject</h1>
       {ObjectComponent}
       <h1>ClassBasic-StaticObject</h1>
       {ClassComponent}
@@ -27,7 +27,7 @@ export default function App() {
             <FunctionComponent title="标题"></FunctionComponent>
           </li>
         ))}
-      </ul>
+      </ul> */}
 
       <h1>nest</h1>
       <NestComponent>

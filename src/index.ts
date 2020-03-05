@@ -124,10 +124,18 @@ function render(
 const React = {
   createElement,
   // todo: the render should be the same with above render function
-  render(element: ElementType, container: HTMLElement) {
+  render(
+    element: ElementType,
+    container: HTMLElement | DocumentFragment,
+    parent: VDom = null
+  ) {
     // todo: diff
-    container.innerHTML = "";
-    render(element, container, null);
+
+    Array.from(container.childNodes).forEach(ele => {
+      container.removeChild(ele);
+    });
+
+    render(element, container, parent);
   }
 };
 
