@@ -3,8 +3,9 @@
 ## todo
 
 - react hook
-- dom update
-- dom diff
+- connect react with vdom
+- diff
+- ...
 
 ## dev & build
 
