@@ -24,6 +24,7 @@ export interface VueElement extends JSX.Element {
   props: vDomProps;
   children: RenderElementType[];
   $el?: VDom | HTMLElement | DocumentFragment;
+  $parent?: VDom | HTMLElement | DocumentFragment;
 }
 
 export interface vFun {
@@ -45,6 +46,7 @@ export class VDom implements VueElement {
   props: vDomProps;
   children: RenderElementType[];
   $el?: VDom | HTMLElement | DocumentFragment;
+  $parent?: VDom | HTMLElement | DocumentFragment;
   constructor(
     type: VDOMType,
     props: vDomProps = {},
@@ -107,12 +109,14 @@ function render(
     });
 
     element.$el = $elDomElement;
+    element.$parent = container;
     container.appendChild($elDomElement);
   }
   // VDOM instance function component
   else if (typeof element.type === "function") {
     const $elVdomElement = element.type(element.props, element.children);
     element.$el = $elVdomElement;
+    element.$parent = container;
     render($elVdomElement, container);
   }
 }
