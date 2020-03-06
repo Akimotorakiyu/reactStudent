@@ -1,19 +1,5 @@
-import React, { VDom, Fragment } from "../src/index";
+import React, { Fragment } from "../src/index";
 import Clock from "./Clock";
-
-export const ObjectComponent = (
-  <div>
-    <h1>reactStudent</h1>
-    <p>hello world!</p>
-    <Clock></Clock>
-  </div>
-);
-
-export const ClassComponent = new VDom("div", { key: "" }, [
-  new VDom("h1", { key: "" }, ["reactStudent"]),
-  new VDom("p", { key: "" }, ["hello world!"]),
-  Date()
-]);
 
 export function FunctionComponent(props) {
   const vdom = (

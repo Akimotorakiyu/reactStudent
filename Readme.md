@@ -20,6 +20,6 @@
 - render function
 - list
 - multiple root dom
-- Fragment
+- Fragment 组件，等价 jsx 中 空 tag 标签
 - props
 - slot
