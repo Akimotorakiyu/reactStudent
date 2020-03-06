@@ -3,7 +3,7 @@ import React, { componentFunction, createElement } from "../src/index";
 export default componentFunction(function Clock(props, child) {
   // console.log("clock instance", this);
 
-  setTimeout(() => {
+  const update = () => {
     const temp = document.createDocumentFragment();
     React.render(createElement(this.type), temp, this.$parent);
 
@@ -18,7 +18,9 @@ export default componentFunction(function Clock(props, child) {
     } else {
       (this.$el.$el as HTMLElement).replaceWith(temp);
     }
-  }, 1000);
+  };
+
+  setTimeout(update, 1000);
 
   return (
     <>
